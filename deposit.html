@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dreamsolution - Dépôt</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        const user = JSON.parse(localStorage.getItem('user'));
+
+        function deposit() {
+            const amount = parseFloat(prompt("Entrez le montant à déposer en CFA:"));
+            if (amount > 0) {
+                user.balance += amount; // Augmente le solde de l'utilisateur
+                localStorage.setItem('user', JSON.stringify(user)); // Met à jour les informations de l'utilisateur
+                alert(`Vous avez déposé ${amount} CFA! Votre nouveau solde est ${user.balance} CFA.`);
+            } else {
+                alert("Montant invalide. Veuillez entrer un montant positif.");
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Dépôt</h1>
+        <button onclick="deposit()">Dépôt de fonds</button>
+        <a href="dashboard.html">Retour au tableau de bord</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dreamsolution - Dépôt/Retrait</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        const user = JSON.parse(localStorage.getItem('user')) || { balance: 0, withdrawalRequests: [] };
+
+        function showDepositOptions() {
+            const choice = prompt("Choisissez la banque pour le dépôt: 1 pour MTN, 2 pour ORANGE");
+
+            if (choice === '1') {
+                alert("Effectuez le dépôt via MTN au numéro: +237 6 76 22 44 90");
+            } else if (choice === '2') {
+                alert("Effectuez le dépôt via ORANGE au numéro: +237 6 93 51 75 98");
+            } else {
+                alert("Choix invalide");
+                return;
+            }
+
+            const depositAmount = parseFloat(prompt("Entrez le montant du dépôt (minimum 1000 CFA):"));
+            if (depositAmount >= 1000) {
+                user.balance += depositAmount;
+                localStorage.setItem('user', JSON.stringify(user));
+                alert(`Dépôt réussi de ${depositAmount} CFA. Votre nouveau solde est ${user.balance} CFA.`);
+            } else {
+                alert("Le montant du dépôt doit être au moins de 1000 CFA.");
+            }
+        }
+
+        function requestWithdrawal() {
+            const withdrawalAmount = parseFloat(prompt("Entrez le montant à retirer (minimum 4000 CFA):"));
+            const fee = 250;
+            const totalDeduction = withdrawalAmount + fee;
+
+            if (withdrawalAmount < 4000) {
+                alert("Le montant minimum pour un retrait est de 4000 CFA.");
+                return;
+            }
+            if (totalDeduction > user.balance) {
+                alert("Fonds insuffisants pour ce retrait, y compris l'indemnité de 250 CFA.");
+                return;
+            }
+
+            const recipientNumber = prompt("Entrez le numéro de téléphone destinataire:");
+            user.withdrawalRequests.push({ amount: withdrawalAmount, recipient: recipientNumber });
+            localStorage.setItem('user', JSON.stringify(user));
+
+            alert("Votre demande de retrait est en cours de traitement.");
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Bienvenue sur la page Dépôt/Retrait</h1>
+        <p>Le dépôt minimum est de 1000 CFA et le retrait minimum est de 4000 CFA.</p>
+        <div>
+            <button onclick="showDepositOptions()">Dépôt</button>
+            <button onclick="requestWithdrawal()">Retrait</button>
+        </div>
+        <a href="dashboard.html">Retour au tableau de bord</a>
+    </div>
+</body>
+</html>

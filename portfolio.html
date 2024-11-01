@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dreamsolution - Portefeuille</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        const user = JSON.parse(localStorage.getItem('user'));
+
+        function displayPortfolio() {
+            if (user) {
+                document.getElementById('currentBalance').textContent = user.balance ? user.balance + ' CFA' : '0 CFA';
+                document.getElementById('withdrawnAmount').textContent = user.withdrawn ? user.withdrawn + ' CFA' : '0 CFA';
+                document.getElementById('totalEarnings').textContent = user.totalEarnings ? user.totalEarnings + ' CFA' : '0 CFA';
+            }
+        }
+
+        function linkAccount() {
+            const accountNumber = prompt("Entrez votre numéro de téléphone:");
+            const realName = prompt("Entrez votre vrai nom:");
+            alert(`Compte lié avec succès: ${accountNumber} au nom de ${realName}`);
+        }
+
+        window.onload = displayPortfolio;
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Mon Portefeuille</h1>
+        <p>Solde actuel: <span id="currentBalance">0 CFA</span></p>
+        <p>Montant retiré: <span id="withdrawnAmount">0 CFA</span></p>
+        <p>Total gagné: <span id="totalEarnings">0 CFA</span></p>
+        <button onclick="linkAccount()">Lier compte Orange/MTN</button>
+        <a href="dashboard.html">Retour au tableau de bord</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dreamsolution - Accueil</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        function login() {
+            const phoneEmail = document.getElementById('phoneEmail').value;
+            const password = document.getElementById('password').value;
+
+            const user = JSON.parse(localStorage.getItem('user'));
+            if (user && (user.phone === phoneEmail || user.email === phoneEmail) && user.password === password) {
+                window.location.href = 'products.html';
+            } else {
+                alert('Identifiants invalides.');
+            }
+        }
+
+        function goToSignup() {
+            window.location.href = 'signup.html';
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Bienvenue sur Dreamsolution</h1>
+        <input type="text" id="phoneEmail" placeholder="Numéro de téléphone ou e-mail">
+        <input type="password" id="password" placeholder="Mot de passe">
+        <button onclick="login()">Connexion</button>
+        <p>Pas de compte ? <a href="#" onclick="goToSignup()">Inscrivez-vous ici</a></p>
+    </div>
+</body>
+</html>

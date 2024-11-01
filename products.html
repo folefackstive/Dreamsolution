@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dreamsolution - Produits</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        function buyProduct(productName, price) {
+            alert(`Vous avez acheté ${productName} pour ${price} CFA.`);
+            // Ajoutez ici la logique pour enregistrer l'achat
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Produits disponibles</h1>
+        <ul>
+            <li>Produit 1: 4000 CFA - <button onclick="buyProduct('Produit 1', 4000)">Acheter</button></li>
+            <li>Produit 2: 7000 CFA - <button onclick="buyProduct('Produit 2', 7000)">Acheter</button></li>
+            <li>Produit 3: 10000 CFA - <button onclick="buyProduct('Produit 3', 10000)">Acheter</button></li>
+            <li>Produit 4: 13000 CFA - <button onclick="buyProduct('Produit 4', 13000)">Acheter</button></li>
+            <li>Produit 5: 15000 CFA - <button onclick="buyProduct('Produit 5', 15000)">Acheter</button></li>
+            <li>Produit 6: 50000 CFA - <button onclick="buyProduct('Produit 6', 50000)">Acheter</button></li>
+            <li>Produit 7: 100000 CFA - <button onclick="buyProduct('Produit 7', 100000)">Acheter</button></li>
+            <li>Produit 8: 10000000 CFA - <button onclick="buyProduct('Produit 8', 10000000)">Acheter</button></li>
+        </ul>
+        <a href="active.html">Voir mes produits actifs</a>
+        <a href="dashboard.html">Tableau de bord</a>
+    </div>
+</body>
+</html>

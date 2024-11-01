@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dreamsolution - Administration</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        const users = JSON.parse(localStorage.getItem('allUsers')) || [];
+
+        function displayUsers() {
+            const userList = document.getElementById('userList');
+            userList.innerHTML = '';
+
+            users.forEach((user, index) => {
+                const userDiv = document.createElement('div');
+                userDiv.innerHTML = `
+                    <p>Utilisateur ${index + 1} - Solde: ${user.balance} CFA</p>
+                    <button onclick="processWithdrawals(${index})">Voir les demandes de retrait</button>
+                `;
+                userList.appendChild(userDiv);
+            });
+        }
+
+        function processWithdrawals(userIndex) {
+            const user = users[userIndex];
+            const requests = user.withdrawalRequests || [];
+
+            if (requests.length === 0) {
+                alert("Aucune demande de retrait en attente pour cet utilisateur.");
+                return;
+            }
+
+            requests.forEach((request, index) => {
+                const confirmWithdrawal = confirm(`Approuver le retrait de ${request.amount} CFA pour le numéro ${request.recipient}?`);
+                if (confirmWithdrawal) {
+                    user.balance -= (request.amount + 250);
+                    alert(`Retrait de ${request.amount} CFA approuvé pour ${request.recipient}. Solde actuel: ${user.balance} CFA.`);
+                } else {
+                    alert("Retrait refusé.");
+                }
+            });
+
+            user.withdrawalRequests = [];
+            localStorage.setItem('allUsers', JSON.stringify(users));
+            displayUsers();
+        }
+        document.addEventListener('DOMContentLoaded', displayUsers);
+    </script>
+</head>
+<body>
+    <div class="admin-container">
+        <h1>Gestion des Utilisateurs - Dreamsolution</h1>
+        <div id="userList">
+            <!-- Les informations des utilisateurs seront affichées ici -->
+        </div>
+        <button onclick="refreshPage()">Actualiser</button>
+    </div>
+
+    <script>
+        function refreshPage() {
+            displayUsers();
+            alert("Liste des utilisateurs actualisée.");
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dreamsolution - Retrait</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        const user = JSON.parse(localStorage.getItem('user'));
+
+        function withdraw() {
+            const amount = parseFloat(prompt("Entrez le montant à retirer en CFA:"));
+            if (amount > 0 && amount <= user.balance) {
+                user.balance -= amount; // Diminue le solde de l'utilisateur
+                user.withdrawn = (user.withdrawn || 0) + amount; // Met à jour le montant retiré
+                localStorage.setItem('user', JSON.stringify(user)); // Met à jour les informations de l'utilisateur
+                alert(`Vous avez retiré ${amount} CFA! Votre nouveau solde est ${user.balance} CFA.`);
+            } else {
+                alert("Montant invalide ou solde insuffisant.");
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Retrait</h1>
+        <button onclick="withdraw()">Retrait de fonds</button>
+        <a href="dashboard.html">Retour au tableau de bord</a>
+    </div>
+</body>
+</html>

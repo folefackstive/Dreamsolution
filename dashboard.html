@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dreamsolution - Tableau de Bord</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Tableau de Bord</h1>
+        <p>Nom d'utilisateur: <span id="usernameDisplay"></span></p>
+        <p>Solde total: <span id="balanceDisplay">0 CFA</span></p>
+        <p>Produits actifs: <span id="activeProductsDisplay">0</span></p>
+        <script>
+            // Logique pour afficher les informations de l'utilisateur
+            const user = JSON.parse(localStorage.getItem('user'));
+            if (user) {
+                document.getElementById('usernameDisplay').textContent = user.username;
+                // Mettez à jour le solde et le nombre de produits actifs ici
+            }
+        </script>
+        <a href="products.html">Acheter de nouveaux produits</a>
+    </div>
+</body>
+</html>

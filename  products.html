@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dreamsolution - Produits</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        const products = [
+            { id: 1, price: 4000, return: 10, days: 50 },
+            { id: 2, price: 7000, return: 10, days: 50 },
+            { id: 3, price: 10000, return: 10, days: 50 },
+            { id: 4, price: 13000, return: 10, days: 50 },
+            { id: 5, price: 15000, return: 10, days: 50 },
+            { id: 6, price: 50000, return: 10, days: 50 },
+            { id: 7, price: 100000, return: 10, days: 50 },
+            { id: 8, price: 10000000, return: 10, days: 50 }
+        ];
+
+        const user = JSON.parse(localStorage.getItem('user'));
+
+        function displayProducts() {
+            const productList = document.getElementById('productList');
+            products.forEach(product => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `Produit à ${product.price} CFA - Retour de ${product.return}% pendant ${product.days} jours`;
+                const buyButton = document.createElement('button');
+                buyButton.textContent = 'Acheter';
+                buyButton.onclick = () => purchaseProduct(product);
+                listItem.appendChild(buyButton);
+                productList.appendChild(listItem);
+            });
+        }
+
+        function purchaseProduct(product) {
+            if (user.balance >= product.price) {
+                user.balance -= product.price; // Déduit le prix du produit du solde de l'utilisateur
+                user.totalEarnings = (user.totalEarnings || 0) + (product.price * product.return / 100); // Ajoute le rendement au total gagné
+                localStorage.setItem('user', JSON.stringify(user)); // Met à jour les informations de l'utilisateur dans le localStorage
+                alert(`Vous avez acheté le produit à ${product.price} CFA! Votre nouveau solde est ${user.balance} CFA.`);
+            } else {
+                alert("Solde insuffisant pour effectuer cet achat.");
+            }
+        }
+
+        window.onload = displayProducts;
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Produits Disponibles</h1>
+        <ul id="productList"></ul>
+        <a href="dashboard.html">Retour au tableau de bord</a>
+    </div>
+</body>
+</html>
